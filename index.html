@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="inbox">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Rerum Inbox</title>
+
+        <!-- CSS  -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen"/>
+        <link href="css/style.css" type="text/css" rel="stylesheet" media="screen"/>
+        <link rel="shortcut icon" href="images/fav/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="57x57" href="images/fav/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="images/fav/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="images/fav/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="images/fav/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="images/fav/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="images/fav/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="images/fav/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="images/fav/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="images/fav/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="images/fav/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/fav/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="images/fav/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/fav/favicon-16x16.png">
+    </head>
+    <body class="blue-grey darken-4 blue-grey-text text-lighten-3">
+        <nav class="blue-grey darken-4" role="navigation">
+            <div class="nav-wrapper container">
+                <a id="logo-container" href="#" class="brand-logo">
+                    <img alt="logo" src="images/logo.png" height="114">
+                </a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#">Navbar Link</a></li>
+                </ul>
+
+                <ul id="nav-mobile" class="side-nav">
+                    <li><a href="#">Navbar Link</a></li>
+                </ul>
+                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+            </div>
+        </nav>
+    <ng-view>
+    </ng-view>
+
+        <footer class="page-footer blue-grey darken-4">
+            <div class="container">
+                RERUM
+            </div>
+        </footer>
+
+
+        <!--  Scripts-->
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-route.min.js"></script>
+        <script src="js/materialize.js"></script>
+        <script src="js/init.js"></script>
+        <script>
+            function scrollTo (event) {
+                function easeInOutQuad (t) {
+                    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+                }
+                let a = event.target;
+                while (a && a.tagName !== "A") {
+                    a = a.parentElement;
+                }
+                let hash = a.hash;
+                event.preventDefault();
+                let target = document.getElementById(hash.substring(1));
+                // target.scrollIntoView({ behavior: 'smooth'});
+
+                const start = window.pageYOffset;
+                const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
+
+                const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+                const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+                const destinationOffset = target.offsetTop;
+                const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
+
+                if ('requestAnimationFrame' in window === false) {
+                    window.scroll(0, destinationOffsetToScroll);
+                    return;
+                }
+
+                function scroll () {
+                    const now = 'now' in window.performance ? performance.now() : new Date().getTime();
+                    const time = Math.min(1, ((now - startTime) / 500));
+                    const timeFunction = easeInOutQuad(time);
+                    window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
+
+                    if (window.pageYOffset === destinationOffsetToScroll) {
+                        return;
+                    }
+                    requestAnimationFrame(scroll);
+                }
+                scroll();
+            }
+            var smooths = document.querySelectorAll('a.smooth');
+            for (let item of smooths) {
+                item.addEventListener('click', scrollTo);
+            }
+        </script>
+    </body>
+</html>
