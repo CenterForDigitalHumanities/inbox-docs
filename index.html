@@ -25,9 +25,9 @@
         <link rel="icon" type="image/png" sizes="16x16" href="images/fav/favicon-16x16.png">
     </head>
     <body class="blue-grey darken-4 blue-grey-text text-lighten-3">
-        <nav class="blue-grey darken-4" role="navigation">
+        <nav class="blue-grey darken-2" role="navigation">
             <div class="nav-wrapper container">
-                <a id="logo-container" href="#" class="brand-logo">
+                <a id="logo-container" href="#!/" class="brand-logo">
                     <img alt="logo" src="images/logo.png" height="114">
                 </a>
                 <ul class="right hide-on-med-and-down">
@@ -56,50 +56,5 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-route.min.js"></script>
         <script src="js/materialize.js"></script>
         <script src="js/init.js"></script>
-        <script>
-            function scrollTo (event) {
-                function easeInOutQuad (t) {
-                    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-                }
-                let a = event.target;
-                while (a && a.tagName !== "A") {
-                    a = a.parentElement;
-                }
-                let hash = a.hash;
-                event.preventDefault();
-                let target = document.getElementById(hash.substring(1));
-                // target.scrollIntoView({ behavior: 'smooth'});
-
-                const start = window.pageYOffset;
-                const startTime = 'now' in window.performance ? performance.now() : new Date().getTime();
-
-                const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
-                const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
-                const destinationOffset = target.offsetTop;
-                const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset);
-
-                if ('requestAnimationFrame' in window === false) {
-                    window.scroll(0, destinationOffsetToScroll);
-                    return;
-                }
-
-                function scroll () {
-                    const now = 'now' in window.performance ? performance.now() : new Date().getTime();
-                    const time = Math.min(1, ((now - startTime) / 500));
-                    const timeFunction = easeInOutQuad(time);
-                    window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
-
-                    if (window.pageYOffset === destinationOffsetToScroll) {
-                        return;
-                    }
-                    requestAnimationFrame(scroll);
-                }
-                scroll();
-            }
-            var smooths = document.querySelectorAll('a.smooth');
-            for (let item of smooths) {
-                item.addEventListener('click', scrollTo);
-            }
-        </script>
-    </body>
+</body>
 </html>

@@ -2577,6 +2577,9 @@ a {
   clear: both;
 }
 
+.clear-right{
+    clear:right;
+}
 .z-depth-0 {
   -webkit-box-shadow: none !important;
           box-shadow: none !important;

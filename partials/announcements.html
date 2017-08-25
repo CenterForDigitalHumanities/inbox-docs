@@ -1,3 +1,74 @@
-<div>
-    explore announcements
+<div class="section">
+    <div class="container">
+        <h1>Inbox Announcements</h1>
+        <p class="flow-text">
+            All announcements are <a href="https://www.w3.org/TR/ldn/" target="_blank">
+                Linked Data Notifications</a> that follow a few shared rules. You can read
+            the <a href="#!/specs">specs</a>, if you like. Simply, it looks like this:
+        </p>
+        <div class="row" style="position:relative;box-shadow: #263238 0 0 5rem 2rem inset;overflow: hidden;">
+            <pre class="grey darken-3 text-darken-2 grey-text" style="position:absolute;top:-1.25rem;width:100%;z-index: -1;padding: 2rem;" ng-bind="announcement|json">
+            </pre>
+            <div class="col s12 m6 offset-m3">
+                <div class="card yellow lighten-4 grey-text text-darken-4 z-depth-3">
+                    <div class="card-content">
+                        <span class="card-title tooltipped" data-tooltip='"@type" and "actor"'>SCTA Annoucement</span>
+                        <em class="tooltipped thin" data-tooltip='"motivation" and "target"'>
+                            This manuscript has some supplemental information available.
+                        </em>
+                        <p class="tooltipped" data-tooltip='"object.description"'>
+                            A Table of Contents for lombardsententia/zbsSII72
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <span class="tooltipped right" data-tooltip='"object.logo"'><img src="https://scta.info/logo.png" alt="SCTA logo" height="30"></span>
+                        <span class="tooltipped" data-tooltip='"object.attribution"'><small>Data provided by the Scholastic Commentaries and Texts Archive</small></span>
+                        <span class="tooltipped right clear-right" data-tooltip='"object.license"'><img src="images/by.png" alt="CC-by-SA" height="30"></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="flow-text">
+            The Table of Contents mentioned is not in the announcement itself, but
+            can be loaded easily if requested. Any IIIF Manifest can be targeted
+            by these announcements, even if the hosting repository has not included
+            it as a <a href="dev">listed service</a>. Enter the
+            <span class="tooltipped" data-tooltip="https://example.com/iiif/manifest.json">URI</span>
+            of the Manifest that represents the resource in which you are interested
+            to see if any announcements have been posted.
+        </p>
+        <div class="row">
+            <form class="col s12" ng-submit="checkUri()">
+                <div class="row">
+                    <div class="input-field col s12 accent-3 orange-text">
+                        <i class="material-icons prefix">link</i>
+                        <input id="uri" type="text" class="validate" ng-model="uri">
+                        <label for="first_name">Manifest URI</label>
+                        <input class="btn waves-effect waves-light accent-3 orange" type="submit" value="Lookup">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="card yellow lighten-4 grey-text text-darken-4" ng-repeat="(id,a) in announcements">
+                <div class="card-content">
+                    <span class="card-title">{{a.actor.label}} {{a['@type']}}</span>
+                    <em class="thin">
+                        {{a.motivation}}
+                    </em>
+                    <p>
+                        {{a.object.description}}
+                    </p>
+                </div>
+                <div class="card-action">
+                    <span class=" right" data-tooltip='"object.logo"'><img ng-src="{{a.object.logo}}" alt="logo" height="30"></span>
+                    <span><small>{{object.attribution}}</small></span>
+                    <!--                        <span class="right clear-right" data-tooltip='"object.license"'><img src="images/by.png" alt="CC-by-SA" height="30"></span>-->
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
