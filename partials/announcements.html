@@ -53,22 +53,42 @@
         <div class="row">
             <div class="card yellow lighten-4 grey-text text-darken-4" ng-repeat="(id,a) in announcements">
                 <div class="card-content">
-                    <span class="card-title">{{a.actor.label}} {{a['@type']}}</span>
+                    <span class="card-title">{{a.actor.label}} {{((a['@type']==="Announce") && "Announcement")||a['@type']}}
+                        <a ng-href="{{a['@id']}}" class="right btn-floating">
+                            <i class="material-icons" title="JSON" style="line-height: 40px;">code</i>
+                        </a>
+                    </span>
                     <em class="thin">
-                        {{a.motivation}}
+                        {{((a.motivation==="supplementing") && "supplemental information available")||a.motivation}}
                     </em>
                     <p>
-                        {{a.object.description}}
+                        {{a.object.description || "[ no description provided ]"}}
                     </p>
+                    <a ng-show="a.object['@id']" ng-attr-href="{{a.object['@id']}}" target="_blank"
+                       class="waves-effect waves-light btn-flat">
+                        <i class="material-icons right">open_in_new</i>
+                        Open JSON reference
+                    </a>
                 </div>
                 <div class="card-action">
-                    <span class=" right" data-tooltip='"object.logo"'><img ng-src="{{a.object.logo}}" alt="logo" height="30"></span>
-                    <span><small>{{object.attribution}}</small></span>
+                    <span class=" right" ng-show="{{a.object.hasProperty('logo')}}"><img ng-src="{{a.object.logo}}" ng-alt="logo" height="30"></span>
+                    <span><small>{{a.object.attribution || '[ attribution unavailable ]'}}
+                            <i class="material-icons left tooltipped" data-tooltip="{{a.object.license || '[ no license provided ]'}}">copyright</i>
+                        </small></span>
                     <!--                        <span class="right clear-right" data-tooltip='"object.license"'><img src="images/by.png" alt="CC-by-SA" height="30"></span>-->
                     <div class="clearfix"></div>
                 </div>
-
             </div>
+            <div ng-class="{'scale-in':empty}" class="scale-transition scale-out card">
+                <p class="blue-grey darken-3 card-panel">
+                    <i class="red-text material-icons medium left">error</i>
+                    No announcements were found for your Manifest. You might
+                    see if there is a service block for a different LDN&nbsp;Inbox
+                    in the Manifest itself. We will provide more tools here in
+                        the future to help you discover and create content.
+                    </p>
+                </div>
+
         </div>
     </div>
 </div>

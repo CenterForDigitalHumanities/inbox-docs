@@ -51,18 +51,25 @@ angular.module('inbox',['ngRoute'])
 
 
 })
-    .controller('announcementsController',function($scope,$http){
+    .controller('announcementsController',function($scope,$http,$timeout){
         $scope.checkUri = function(){
             let uri = $scope.uri;
             if (!uri) return false;
-            uri = 'https://rerum-inbox.firebaseio.com/messages.json?orderBy="target"&equalTo="'+uri+'"';
+            uri = 'http://jpcloudusa015.nshostserver.net:33106/inbox/messages?target='+uri;
+//            uri = 'https://rerum-inbox.firebaseio.com/messages.json?orderBy="target"&equalTo="'+uri+'"';
             let promise = $http({
                 url:uri,
                 method:'GET'
             })
                 .then(function(res){
-                    $scope.announcements = res.data;
-            }, function(){});
+                    $scope.announcements = res.data.contains;
+                    $scope.empty = res.data.contains.length===0;
+
+                $timeout(function(){        $('.tooltipped').tooltip({delay: 50});
+                    },350);
+            }, function(){
+                $scope.empty = true;
+            });
         };
         $scope.announcement = {
     "@context":"https://iiif.io/api/presentation/2/context.json",
@@ -78,7 +85,7 @@ angular.module('inbox',['ngRoute'])
         "logo":"https://scta.info/logo.png"},
     "published":"2017-08-23 20:15:52 UTC"
 };
-    $('.tooltipped').tooltip({delay: 50});
+        $('.tooltipped').tooltip({delay: 50});
 })
 .config(function($routeProvider, $locationProvider, $httpProvider){
     $httpProvider.defaults.useXDomain = true;
