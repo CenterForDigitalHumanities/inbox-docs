@@ -48,8 +48,6 @@ angular.module('inbox',['ngRoute'])
             for (let item of smooths) {
                 item.addEventListener('click', scrollTo);
             }
-
-
 })
     .controller('announcementsController',function($scope,$http,$timeout){
         $scope.checkUri = function(){
@@ -95,8 +93,8 @@ angular.module('inbox',['ngRoute'])
         templateUrl: 'partials/home.html',
         controller: 'homeController'
     })
-        .when('/boop',{
-        template: '<div>boop</div>',
+        .when('/specifications',{
+        templateUrl: 'partials/specifications.html',
         controller: 'homeController'
     })
         .when('/announcements',{
