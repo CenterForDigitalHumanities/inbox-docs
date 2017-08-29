@@ -11,6 +11,28 @@ nav .brand-logo {
   color: #444;
 }
 
+nav {
+    height:100px;
+}
+
+#logo-container {
+    padding:1.5rem;
+    transition: padding,width .5s;
+    z-index: 4;
+    width:100vw;
+}
+#logo-container img {
+    height:114px;
+    transition: height .5s;
+}
+#logo-container.pinned{
+    padding:0rem;
+    width:46px;
+}
+#logo-container.pinned img {
+    height:36px;
+}
+
 p {
   line-height: 2rem;
 }

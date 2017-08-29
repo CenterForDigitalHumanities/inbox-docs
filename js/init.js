@@ -1,10 +1,18 @@
 angular.module('inbox',['ngRoute'])
-    .controller('homeController', function($scope){
+    .controller('homeController', function($scope,$route){
     $('.button-collapse').sideNav();
     $('.parallax').parallax();
-
+    $('.collapsible').collapsible();
+$('#logo-container').pushpin({
+      top: 15,
+      offset: 0
+    });
     $('.tooltipped').tooltip({delay: 50});
-
+if($route.current.templateUrl==="partials/home.html"){
+    $('#logo-container').attr('href',"#");
+} else {
+    $('#logo-container').attr('href',"#!/");
+}
             function scrollTo (event) {
                 function easeInOutQuad (t) {
                     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
@@ -85,7 +93,7 @@ angular.module('inbox',['ngRoute'])
 };
         $('.tooltipped').tooltip({delay: 50});
 })
-.config(function($routeProvider, $locationProvider, $httpProvider){
+.config(function($routeProvider, $httpProvider){
     $httpProvider.defaults.useXDomain = true;
 
     $routeProvider
