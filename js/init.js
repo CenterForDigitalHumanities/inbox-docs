@@ -3,10 +3,6 @@ angular.module('inbox',['ngRoute'])
     $('.button-collapse').sideNav();
     $('.parallax').parallax();
     $('.collapsible').collapsible();
-$('#logo-container').pushpin({
-      top: 15,
-      offset: 0
-    });
     $('.tooltipped').tooltip({delay: 50});
 if($route.current.templateUrl==="partials/home.html"){
     $('#logo-container').attr('href',"#");
@@ -114,3 +110,7 @@ if($route.current.templateUrl==="partials/home.html"){
         });
 })
 ;
+$('#logo-container').pushpin({
+      top: 15,
+      offset: 0
+    });

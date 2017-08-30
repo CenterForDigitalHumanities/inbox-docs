@@ -26,13 +26,16 @@ nav {
     transition: height .5s;
 }
 #logo-container.pinned{
-    padding:0rem;
+    padding:.5rem;
     width:46px;
 }
 #logo-container.pinned img {
     height:36px;
 }
-
+.v-spacer{
+    min-height: 10rem;
+    clear:both;
+}
 p {
   line-height: 2rem;
 }
