@@ -134,11 +134,15 @@ angular.module('inbox', ['ngRoute'])
                 redirectTo: "/"
             });
     })
-        console.log("viewed");
+        .run(["$rootScope", "$anchorScroll" , function ($rootScope) {
+    $rootScope.$on("$routeChangeSuccess", function($event,route) {
         window.scrollTo(0,0);
+        if (!route.$$route||route.$$route.templateUrl === "partials/home.html") {
             $('#logo-container')
+                .attr('href', "#top").addClass("smooth");
         } else {
             $('#logo-container')
+                .attr('href', "#!/").removeClass("smooth");
         }
     });
 }])
