@@ -1,5 +1,5 @@
 angular.module('inbox', ['ngRoute'])
-    .controller('homeController', function ($scope, $route) {
+    .controller('homeController', function ($scope) {
         $('.button-collapse')
             .sideNav();
         $('.parallax')
@@ -10,14 +10,7 @@ angular.module('inbox', ['ngRoute'])
             .tooltip({
                 delay: 50
             });
-        if ($route.current.templateUrl === "partials/home.html") {
-            $('#logo-container')
-                .attr('href', "#");
-        } else {
-            $('#logo-container')
-                .attr('href', "#!/");
-        }
-        function scrollTo (event) {
+        function scrollToTarget (event) {
             function easeInOutQuad (t) {
                 return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
             }
@@ -48,8 +41,7 @@ angular.module('inbox', ['ngRoute'])
                 const time = Math.min(1, ((now - startTime) / 500));
                 const timeFunction = easeInOutQuad(time);
                 window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
-
-                if (window.pageYOffset === destinationOffsetToScroll) {
+                if (Math.abs(window.pageYOffset-destinationOffsetToScroll)<2) {
                     return;
                 }
                 requestAnimationFrame(scroll);
@@ -58,7 +50,7 @@ angular.module('inbox', ['ngRoute'])
         }
         let smooths = document.querySelectorAll('a.smooth');
         for (let item of smooths) {
-            item.addEventListener('click', scrollTo);
+            item.addEventListener('click', scrollToTarget);
         }
     })
     .controller('announcementsController', function ($scope, $http, $timeout) {
@@ -139,6 +131,19 @@ angular.module('inbox', ['ngRoute'])
                 redirectTo: "/"
             });
     })
+        .run(["$rootScope", "$anchorScroll" , function ($rootScope,$route) {
+    $rootScope.$on("$viewContentLoaded", function() {
+        console.log("viewed");
+        window.scrollTo(0,0);
+        if (!$route.current||$route.current.templateUrl === "partials/home.html") {
+            $('#logo-container')
+                .attr('href', "#top");
+        } else {
+            $('#logo-container')
+                .attr('href', "#!/");
+        }
+    });
+}])
     ;
 $('#logo-container')
     .pushpin({
