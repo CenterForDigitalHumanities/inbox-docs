@@ -62,6 +62,16 @@ angular.module('inbox', ['ngRoute'])
         }
     })
     .controller('announcementsController', function ($scope, $http, $timeout) {
+        $scope.$watch('uri',function(){
+            let uri = $scope.uri;
+            if (!uri)
+                return false;
+            let i = /manifest=|ur\w=/i.exec(uri);
+            if(i){
+                uri = uri.substring(i.index).split("=")[1].split("&")[0];
+                $scope.uri = uri;
+            }
+        });
         $scope.checkUri = function () {
             let uri = $scope.uri;
             if (!uri)
