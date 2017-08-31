@@ -18,6 +18,9 @@ angular.module('inbox', ['ngRoute'])
             while (a && a.tagName !== "A") {
                 a = a.parentElement;
             }
+            if(!$(a).hasClass("smooth")){
+                return true;
+            }
             let hash = a.hash;
             event.preventDefault();
             let target = document.getElementById(hash.substring(1));
@@ -131,16 +134,11 @@ angular.module('inbox', ['ngRoute'])
                 redirectTo: "/"
             });
     })
-        .run(["$rootScope", "$anchorScroll" , function ($rootScope,$route) {
-    $rootScope.$on("$viewContentLoaded", function() {
         console.log("viewed");
         window.scrollTo(0,0);
-        if (!$route.current||$route.current.templateUrl === "partials/home.html") {
             $('#logo-container')
-                .attr('href', "#top");
         } else {
             $('#logo-container')
-                .attr('href', "#!/");
         }
     });
 }])
