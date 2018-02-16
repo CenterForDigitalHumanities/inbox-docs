@@ -130,6 +130,10 @@ angular.module('inbox', ['ngRoute'])
                 templateUrl: 'partials/announcements.html',
                 controller: 'announcementsController'
             })
+            .when('/postit', {
+                templateUrl: 'partials/postit.html',
+                controller: 'announcementsController'
+            })
             .otherwise({
                 redirectTo: "/"
             });
