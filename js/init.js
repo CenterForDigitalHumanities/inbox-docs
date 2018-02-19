@@ -1,5 +1,5 @@
 angular.module('inbox', ['ngRoute'])
-    .controller('homeController', function ($scope) {
+    .controller('homeController', function($scope) {
         $('.button-collapse')
             .sideNav();
         $('.parallax')
@@ -10,15 +10,16 @@ angular.module('inbox', ['ngRoute'])
             .tooltip({
                 delay: 50
             });
-        function scrollToTarget (event) {
-            function easeInOutQuad (t) {
+
+        function scrollToTarget(event) {
+            function easeInOutQuad(t) {
                 return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
             }
             let a = event.target;
             while (a && a.tagName !== "A") {
                 a = a.parentElement;
             }
-            if(!$(a).hasClass("smooth")){
+            if (!$(a).hasClass("smooth")) {
                 return true;
             }
             let hash = a.hash;
@@ -39,12 +40,12 @@ angular.module('inbox', ['ngRoute'])
                 return;
             }
 
-            function scroll () {
+            function scroll() {
                 const now = 'now' in window.performance ? performance.now() : new Date().getTime();
                 const time = Math.min(1, ((now - startTime) / 500));
                 const timeFunction = easeInOutQuad(time);
                 window.scroll(0, Math.ceil((timeFunction * (destinationOffsetToScroll - start)) + start));
-                if (Math.abs(window.pageYOffset-destinationOffsetToScroll)<2) {
+                if (Math.abs(window.pageYOffset - destinationOffsetToScroll) < 2) {
                     return;
                 }
                 requestAnimationFrame(scroll);
@@ -56,39 +57,83 @@ angular.module('inbox', ['ngRoute'])
             item.addEventListener('click', scrollToTarget);
         }
     })
-    .controller('announcementsController', function ($scope, $http, $timeout) {
-        $scope.$watch('uri',function(){
+    .controller('announcementsController', function($scope, $http, $timeout) {
+        $scope.$watch('uri', function() {
             let uri = $scope.uri;
             if (!uri)
                 return false;
             let i = /manifest=|ur\w=/i.exec(uri);
-            if(i){
+            if (i) {
                 uri = uri.substring(i.index).split("=")[1].split("&")[0];
                 $scope.uri = uri;
             }
         });
-        $scope.checkUri = function () {
+        $scope.checkUri = function() {
             let uri = $scope.uri;
             if (!uri)
                 return false;
             uri = 'http://jpcloudusa015.nshostserver.net:33106/inbox/messages?target=' + uri;
-//            uri = 'https://rerum-inbox.firebaseio.com/messages.json?orderBy="target"&equalTo="'+uri+'"';
+            //            uri = 'https://rerum-inbox.firebaseio.com/messages.json?orderBy="target"&equalTo="'+uri+'"';
             let promise = $http({
-                url: uri,
-                method: 'GET'
-            })
-                .then(function (res) {
+                    url: uri,
+                    method: 'GET'
+                })
+                .then(function(res) {
                     $scope.announcements = res.data.contains;
                     $scope.empty = res.data.contains.length === 0;
 
-                    $timeout(function () {
+                    $timeout(function() {
                         $('.tooltipped')
                             .tooltip({
                                 delay: 50
                             });
                     }, 350);
-                }, function () {
+                }, function() {
                     $scope.empty = true;
+                });
+        };
+        $scope.messages = {};
+        $scope.announceIt = function(form) {
+            let postit = form.$$element[0];
+            let announcement = {
+                "@context": "https://iiif.io/api/presentation/2/context.json",
+                "@type": "Announce",
+                "target": postit.target_atid.value,
+                "motivation": "supplementing",
+                "actor": {
+                    "@id": postit.actor_atid.value,
+                    "label": postit.actor_label.value
+                },
+                "object": {
+                    "@id": postit.object_atid.value,
+                    "@type": postit.object_type.value,
+                    "attribution": postit.object_attribution.value,
+                    "description": postit.object_description.value,
+                    "license": postit.object_license.value,
+                    "logo": postit.object_logo.value
+                },
+                "published": Date.now()
+            };
+            let uri = 'http://jpcloudusa015.nshostserver.net:33106/inbox/messages';
+            return $http({
+                    url: uri,
+                    method: 'POST',
+                    data: announcement
+                })
+                .then(function(res) {
+                    $scope.message = {
+                        success: true,
+                        link: res.data.name
+                    };
+                    form.$$element[0].reset();
+                }, function() {
+                    $scope.message = {
+                        error: true
+                    };
+                    // error
+                })
+                .finally(function() {
+                    $('#submitted').modal('open');
                 });
         };
         $scope.announcement = {
@@ -97,7 +142,8 @@ angular.module('inbox', ['ngRoute'])
             "target": "http://www.e-codices.ch/metadata/iiif/fcc-0020/manifest.json",
             "motivation": "supplementing",
             "actor": {
-                "@id": "https://scta.info", "label": "SCTA"
+                "@id": "https://scta.info",
+                "label": "SCTA"
             },
             "object": {
                 "@id": "https://scta.info/iiif/lombardsententia/zbsSII72/ranges/toc/wrapper",
@@ -113,8 +159,10 @@ angular.module('inbox', ['ngRoute'])
             .tooltip({
                 delay: 50
             });
+        $('.modal').modal();
+        $('select').material_select();
     })
-    .config(function ($routeProvider, $httpProvider) {
+    .config(function($routeProvider, $httpProvider) {
         $httpProvider.defaults.useXDomain = true;
 
         $routeProvider
@@ -138,19 +186,18 @@ angular.module('inbox', ['ngRoute'])
                 redirectTo: "/"
             });
     })
-        .run(["$rootScope", "$anchorScroll" , function ($rootScope) {
-    $rootScope.$on("$routeChangeSuccess", function($event,route) {
-        window.scrollTo(0,0);
-        if (!route.$$route||route.$$route.templateUrl === "partials/home.html") {
-            $('#logo-container')
-                .attr('href', "#top").addClass("smooth");
-        } else {
-            $('#logo-container')
-                .attr('href', "#!/").removeClass("smooth");
-        }
-    });
-}])
-    ;
+    .run(["$rootScope", "$anchorScroll", function($rootScope) {
+        $rootScope.$on("$routeChangeSuccess", function($event, route) {
+            window.scrollTo(0, 0);
+            if (!route.$$route || route.$$route.templateUrl === "partials/home.html") {
+                $('#logo-container')
+                    .attr('href', "#top").addClass("smooth");
+            } else {
+                $('#logo-container')
+                    .attr('href', "#!/").removeClass("smooth");
+            }
+        });
+    }]);
 $('#logo-container')
     .pushpin({
         top: 15,
