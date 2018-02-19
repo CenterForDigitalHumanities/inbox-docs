@@ -122,9 +122,8 @@
                     <label for="object_logo">Logo</label>
                 </div>
             </div>
-            <div class="row">
-
-                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <div class="row center-align">
+                <button class="btn btn-large waves-effect waves-light" type="submit" name="action">Submit
                 <i class="material-icons right">send</i>
               </button>
             </div>
@@ -133,16 +132,16 @@
 </div>
 </div>
 <div id="submitted" class="modal">
-        <div class="modal-content">
-          <h4>{{message.success&&"Announcement posted" || "Failed to announce..." }}</h4>
-          <p ng-hide="message.success">The call to Rerum Inbox was not successful. Your console may have more information for you.</p>
-          <p ng-hide="message.error">Congratulations! You announcement has posted at: 
-              <a href="http://inbox.rerum.io/id/{{message.link}}">inbox.rerum.io/id/{{message.link}}</a>.
-          </p>
-        </div>
-        <div class="modal-footer">
-          <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Thanks.</a>
-        </div>
-      </div>
+    <div class="modal-content">
+        <h4>{{message.success&&"Announcement posted" || "Failed to announce..." }}</h4>
+        <p ng-hide="message.success">The call to Rerum Inbox was not successful. Your console may have more information for you.</p>
+        <p ng-hide="message.error">Congratulations! You announcement has posted at:
+            <a href="http://inbox.rerum.io/id/{{message.link}}">inbox.rerum.io/id/{{message.link}}</a>.
+        </p>
+    </div>
+    <div class="modal-footer">
+        <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Thanks.</a>
+    </div>
+</div>
 <div class="v-spacer"></div>
 </div>
