@@ -136,6 +136,56 @@ angular.module('inbox', ['ngRoute'])
                     $('#submitted').modal('open');
                 });
         };
+        $scope.loady = function(value,field){
+            return $http.get('value').then(function(response){
+                switch(field){
+                    case "target" : 
+                    if(!response.data){
+                        $('#target_atid').addClass('invalid');
+                    }
+                    break;
+                    case "actor" :
+                    if(!response.data){
+                        $('#actor_atid').addClass('invalid');
+                        $('#actor_label').parents('.input-field').show();
+                    }
+                    if(response.data.label){
+                        $('#actor_label').value(response.data.label);
+                    }
+                    break;
+                    case "object" :
+                    if(!response.data){
+                        $('#object_atid').addClass('invalid');
+                        $('#object_attribution, #object_type, #object_license, #object_logo, #object_description').parents('.input-field').hide();
+                    } else {
+                        $('#object_attribution').value(response.data.attribution);
+                        $('#object_type').value(response.data['@type']||response.data.type);
+                        $('#object_license').value(response.data.license);
+                        $('#object_logo').value(response.data.logo);
+                        $('#object_description').value(response.data.description);
+                        $('#object_attribution, #object_type, #object_license, #object_logo, #object_description').parents('.input-field').show();
+                    }
+                    break;
+                    default : break;
+                }
+            },
+            function(){
+                switch(field){
+                    case "target" : 
+                        $('#target_atid').addClass('invalid');
+                    break;
+                    case "actor" :
+                        $('#actor_atid').addClass('invalid');
+                        $('#actor_label').parents('.input-field').show();
+                    break;
+                    case "object" :
+                        $('#object_atid').addClass('invalid');
+                        $('#object_attribution, #object_type, #object_license, #object_logo, #object_description').parents('.input-field').hide();
+                    break;
+                    default : break;
+                }                
+            });
+        };
         $scope.announcement = {
             "@context": "https://iiif.io/api/presentation/2/context.json",
             "@type": "Announce",
