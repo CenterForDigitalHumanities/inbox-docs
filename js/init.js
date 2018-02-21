@@ -114,7 +114,7 @@ angular.module('inbox', ['ngRoute'])
                 },
                 "published": Date.now()
             };
-            let uri = 'http://jpcloudusa015.nshostserver.net:33106/inbox/messages';
+            let uri = 'https://rerum-inbox.firebaseio.com/messages.json';
             return $http({
                     url: uri,
                     method: 'POST',
