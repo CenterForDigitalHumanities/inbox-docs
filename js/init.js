@@ -80,12 +80,13 @@ angular.module('inbox', ['ngRoute'])
                 })
                 .then(function(res) {
                     // direct call so adjust the response...
-                    res.data.contains = [];
-                    angular.forEach(res.data.contains,function(val,key){
+                    let contains = [];
+                    angular.forEach(res.data,function(val,key){
                         let i = val;
                         i["@id"] = key;
-                        res.data.contains.push(i);
+                        contains.push(i);
                     });
+                    res.data.contains = contains;
                     // end
 
                     $scope.announcements = res.data.contains;
