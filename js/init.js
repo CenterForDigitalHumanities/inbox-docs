@@ -136,33 +136,42 @@ angular.module('inbox', ['ngRoute'])
                     $('#submitted').modal('open');
                 });
         };
-        $scope.loady = function(value,field){
-            return $http.get('value').then(function(response){
+
+        $('#object_attribution, #object_type, #object_license, #object_logo, #object_description,#actor_label').parents('.input-field').hide();
+
+        $scope.loady = function(field){
+            if(!event.target || !event.target.value) return;
+            return $http.get(event.target.value).then(function(response){
                 switch(field){
                     case "target" : 
                     if(!response.data){
                         $('#target_atid').addClass('invalid');
+                    } else {
+                        $('#target_atid').removeClass('invalid');
                     }
                     break;
                     case "actor" :
                     if(!response.data){
                         $('#actor_atid').addClass('invalid');
-                        $('#actor_label').parents('.input-field').show();
+                    } else {
+                        $('#actor_atid').removeClass('invalid');
                     }
                     if(response.data.label){
-                        $('#actor_label').value(response.data.label);
+                        $('#actor_label').val(response.data.label);
                     }
+                    $('#actor_label').parents('.input-field').show();
                     break;
                     case "object" :
                     if(!response.data){
                         $('#object_atid').addClass('invalid');
                         $('#object_attribution, #object_type, #object_license, #object_logo, #object_description').parents('.input-field').hide();
                     } else {
-                        $('#object_attribution').value(response.data.attribution);
-                        $('#object_type').value(response.data['@type']||response.data.type);
-                        $('#object_license').value(response.data.license);
-                        $('#object_logo').value(response.data.logo);
-                        $('#object_description').value(response.data.description);
+                        $('#object_atid').removeClass('invalid');
+                        $('#object_attribution').val(response.data.attribution);
+                        $('#object_type').val(response.data['@type']||response.data.type);
+                        $('#object_license').val(response.data.license);
+                        $('#object_logo').val(response.data.logo);
+                        $('#object_description').val(response.data.description);
                         $('#object_attribution, #object_type, #object_license, #object_logo, #object_description').parents('.input-field').show();
                     }
                     break;

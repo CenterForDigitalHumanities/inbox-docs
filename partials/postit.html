@@ -55,7 +55,7 @@
                 </h5>
                 <div class="input-field col m12">
                     <i class="material-icons prefix">link</i>
-                    <input id="target_atid" placeholder="Enter a URI" type="url" class="validate" />
+                    <input id="target_atid" ng-blur="loady('target')" placeholder="Enter a URI" type="url" class="validate" required />
                     <label for="target_atid">URI</label>
                 </div>
             </div>
@@ -63,14 +63,14 @@
                 <h5 class="tooltipped" data-tooltip="The announcing person or organization">
                     Actor
                 </h5>
-                <div class="input-field col m6 ng-hide">
+                <div class="input-field col m6">
                     <i class="material-icons prefix">account_circle</i>
                     <input id="actor_label" placeholder="Enter a name" type="text" class="validate" />
                     <label for="actor_label">Label</label>
                 </div>
                 <div class="input-field col m6">
                     <i class="material-icons prefix">link</i>
-                    <input id="actor_atid" placeholder="Enter a URI" type="url" class="validate" />
+                    <input id="actor_atid" ng-blur="loady('actor')" placeholder="Enter a URI" type="url" class="validate" />
                     <label for="actor_atid">URI</label>
                 </div>
             </div>
@@ -80,19 +80,19 @@
                 </h5>
                 <div class="input-field col m12">
                     <i class="material-icons prefix">link</i>
-                    <input id="object_atid" placeholder="Enter a URI" type="url" class="validate" />
+                    <input id="object_atid" ng-blur="loady('object')" placeholder="Enter a URI" type="url" class="validate" required />
                     <label for="object_atid">URI</label>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col m6 ng-hide">
+                <div class="input-field col m6">
                     <i class="material-icons prefix">mode_comment</i>
                     <input id="object_attribution" placeholder="Enter a string" type="text" class="validate" />
                     <label for="object_attribution">Attribution</label>
                 </div>
-                <div class="input-field col m6 ng-hide">
+                <div class="input-field col m6">
                     <i class="material-icons prefix">label_outline</i>
-                    <select id="object_type">
+                    <select id="object_type" required>
                                     <option value=" " selected> Select one </option>
                                     <option value="sc:Range">Table of Contents</option>
                                     <option value="sc:Range">Structure</option>
@@ -104,19 +104,19 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col m12 ng-hide">
+                <div class="input-field col m12">
                     <i class="material-icons prefix">description</i>
                     <input id="object_description" placeholder="Enter a string" type="text" class="validate" />
                     <label for="object_description">Description</label>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col m6 ng-hide">
+                <div class="input-field col m6">
                     <i class="material-icons prefix">https</i>
                     <input id="object_license" placeholder="Enter a link" type="url" class="validate" />
                     <label for="object_license">License</label>
                 </div>
-                <div class="input-field col m6 ng-hide">
+                <div class="input-field col m6">
                     <i class="material-icons prefix">picture_in_picture_alt</i>
                     <input id="object_logo" placeholder="Enter a location" type="url" class="validate" />
                     <label for="object_logo">Logo</label>
@@ -134,8 +134,8 @@
 <div id="submitted" class="modal">
     <div class="modal-content">
         <h4>{{message.success&&"Announcement posted" || "Failed to announce..." }}</h4>
-        <p ng-hide="message.success">The call to Rerum Inbox was not successful. Your console may have more information for you.</p>
-        <p ng-hide="message.error">Congratulations! You announcement has posted at:
+        <p="message.success">The call to Rerum Inbox was not successful. Your console may have more information for you.</p>
+        <p="message.error">Congratulations! You announcement has posted at:
             <a href="http://inbox.rerum.io/id/{{message.link}}">inbox.rerum.io/id/{{message.link}}</a>.
         </p>
     </div>
