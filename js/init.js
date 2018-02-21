@@ -159,7 +159,7 @@ angular.module('inbox', ['ngRoute'])
                     if(response.data.label){
                         $('#actor_label').val(response.data.label);
                     }
-                    $('#actor_label').parents('.input-field').show();
+                    $('#actor_label').parents('.input-field').fadeIn(1500);
                     break;
                     case "object" :
                     if(!response.data){
@@ -172,7 +172,7 @@ angular.module('inbox', ['ngRoute'])
                         $('#object_license').val(response.data.license);
                         $('#object_logo').val(response.data.logo);
                         $('#object_description').val(response.data.description);
-                        $('#object_attribution, #object_type, #object_license, #object_logo, #object_description').parents('.input-field').show();
+                        $('#object_attribution, #object_type, #object_license, #object_logo, #object_description').parents('.input-field').fadeIn(1500);
                     }
                     break;
                     default : break;
@@ -185,7 +185,7 @@ angular.module('inbox', ['ngRoute'])
                     break;
                     case "actor" :
                         $('#actor_atid').addClass('invalid');
-                        $('#actor_label').parents('.input-field').show();
+                        $('#actor_label').parents('.input-field').fadeIn(1500);
                     break;
                     case "object" :
                         $('#object_atid').addClass('invalid');
