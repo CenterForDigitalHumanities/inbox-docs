@@ -57,7 +57,10 @@ angular.module('inbox', ['ngRoute'])
             item.addEventListener('click', scrollToTarget);
         }
     })
-    .controller('announcementsController', function($scope, $http, $timeout) {
+    .controller('announcementsController', function($scope, $http, $timeout,$window,$location) {
+        $scope.$on('$viewContentLoaded', function(event) {
+            $window.ga('send', 'pageview', { page: $location.url() });
+          });       
         $scope.$watch('uri', function() {
             let uri = $scope.uri;
             if (!uri)
