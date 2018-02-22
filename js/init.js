@@ -1,5 +1,8 @@
 angular.module('inbox', ['ngRoute'])
-    .controller('homeController', function($scope) {
+    .controller('homeController', function($scope,$window,$location) {
+        $scope.$on('$viewContentLoaded', function(event) {
+            $window.ga('send', 'pageview', { page: $location.url() });
+          });       
         $('.button-collapse')
             .sideNav();
         $('.parallax')
