@@ -56,7 +56,7 @@
             <div class="card yellow lighten-4 grey-text text-darken-4" ng-repeat="(id,a) in announcements">
                 <div class="card-content">
                     <span class="card-title">{{a.actor.label}} {{((a['@type'].indexOf("Announce") > 1) && "Announcement") || a['@type']}}
-                        <a ng-href="{{a['@id']}}" class="right btn-floating">
+                        <a ng-href="http://inbox.rerum.io/id/{{a['@id']}}" class="right btn-floating">
                             <i class="material-icons" title="JSON" style="line-height: 40px;">code</i>
                         </a>
                     </span>
