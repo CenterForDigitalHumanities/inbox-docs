@@ -16,7 +16,7 @@
 <div markdown="1" id="specs">
     <script>
         const specs = document.querySelector('link[rel="import"]').import;
-        document.getElementById("specs").appendChild(specs);
+        document.getElementById("specs").appendChild(specs.contents());
     </script>
     {% include_relative /docs/index.md %}
 </div>
