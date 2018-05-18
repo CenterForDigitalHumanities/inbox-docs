@@ -14,10 +14,9 @@
                         For now, please accept this embedded doc. This spec will be duplicated in the github repo so that issues and pull requests may be filed against it.
                     </p>
 <div markdown="1" id="specs">
-    {% include_relative docs/index.md %}
     <script>
-        const specs = document.querySelector('link[rel="import"]').import
-        document.getElementById("specs").innerText = specs.getElementsByTagName("body")[0].innerText
+    //    const specs = document.querySelector('link[rel="import"]').import
+    //    document.getElementById("specs").innerText = specs.getElementsByTagName("body")[0].innerText
     </script>
 </div>
                 </div>
@@ -119,5 +118,3 @@
     </div>
     <div class="v-spacer"></div>
 </div>
-
-{% include_relative docs/index.md %}
