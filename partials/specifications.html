@@ -13,13 +13,12 @@
                     <p>
                         For now, please accept this embedded doc. This spec will be duplicated in the github repo so that issues and pull requests may be filed against it.
                     </p>
-<!-- <div markdown="1" id="specs">
+<div markdown="1" id="specs">
     <script>
-        // const specs = document.querySelector('link[rel="import"]').import;
-        // document.getElementById("specs").appendChild(specs.contents());
+        const specs = document.querySelector('link[rel="import"]').import
+        document.getElementById("specs").innerText = specs.getElementsByTagName("body")[0].innerText
     </script>
-    {% include_relative /docs/index.md %}
-</div> -->
+</div>
                 </div>
             </li>
             <li>
