@@ -66,7 +66,7 @@ To be returned by an inbox when an inbox notification id is dereferenced
   "motivation": "supplementing",
   "published": "2017-01-02",
   "actor":{
-    "@id": "https://scta.info/#identity,
+    "@id": "https://scta.info/#identity",
     "label": "SCTA"
   },
   "target": "http://example.com/book1/manifest.json",
