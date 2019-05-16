@@ -78,8 +78,7 @@ angular.module('inbox', ['ngRoute'])
             let uri = $scope.uri;
             if (!uri)
                 return false;
-            // uri = 'http://jpcloudusa015.nshostserver.net:33106/inbox/messages?target=' + uri;
-            uri = 'https://rerum-inbox.firebaseio.com/messages.json?orderBy="target"&equalTo="'+uri+'"';
+            uri = 'https://inbox.rerum.io/messages?orderBy="target"&equalTo="'+uri+'"';
             let promise = $http({
                     url: uri,
                     method: 'GET'
@@ -130,7 +129,7 @@ angular.module('inbox', ['ngRoute'])
                 },
                 "published": Date.now()
             };
-            let uri = 'https://rerum-inbox.firebaseio.com/messages.json';
+            let uri = 'https://inbox.rerum.io/messages';
             return $http({
                     url: uri,
                     method: 'POST',
