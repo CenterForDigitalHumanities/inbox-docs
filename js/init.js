@@ -78,7 +78,7 @@ angular.module('inbox', ['ngRoute'])
             let uri = $scope.uri;
             if (!uri)
                 return false;
-            uri = 'https://inbox.rerum.io/messages?orderBy="target"&equalTo="'+uri+'"';
+            uri = 'https://inbox.rerum.io/messages?target='+uri;
             let promise = $http({
                     url: uri,
                     method: 'GET'
