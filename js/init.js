@@ -84,16 +84,6 @@ angular.module('inbox', ['ngRoute'])
                     method: 'GET'
                 })
                 .then(function(res) {
-                    // direct call so adjust the response...
-                    let contains = [];
-                    angular.forEach(res.data,function(val,key){
-                        let i = val;
-                        i["@id"] = key;
-                        contains.push(i);
-                    });
-                    res.data.contains = contains;
-                    // end
-
                     $scope.announcements = res.data.contains;
                     $scope.empty = res.data.contains.length === 0;
 
